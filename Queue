@@ -19,8 +19,16 @@ public:
 		head = nullptr;
 		tail = nullptr;
 	}
-
-	void push_front(int nval)
+	bool is_empty
+	{
+		return size == 0;
+	}
+	
+	int Size()
+	{
+		return size;
+	}
+	void push(int nval)
 	{
 		Node *temp = new Node(nval);
 		temp->next = head;
@@ -29,11 +37,12 @@ public:
 		{
 			tail = temp;
 		}
+		++size;
 	}
 
-	void pop_back()
+	void pop()
 	{
-		if (tail == nullptr && head == nullptr)
+		if (is_empty)
 		{
 			return;
 		}
@@ -42,6 +51,7 @@ public:
 			delete head;
 			head = nullptr;
 			tail = nullptr;
+			--size;
 			return;
 		}
 		Node *temp = head;
@@ -52,8 +62,19 @@ public:
 		delete tail;
 		temp->next = nullptr;
 		tail = temp;
+		--size;	
+	}
+	
+	Node * front()
+	{
+		if (is_empty)
+		{
+			return;
+		}
+		return tail;
 	}
 private:
+	int size;
 	Node *head;
 	Node *tail;
 };
