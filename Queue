@@ -1,0 +1,59 @@
+#pragma once
+
+class Queue
+{
+public:
+	struct Node
+	{
+		int value;
+		Node *next;
+
+		Node(int nval)
+		{
+			value = nval;
+			next = nullptr;
+		}
+	};
+	Queue()
+	{
+		head = nullptr;
+		tail = nullptr;
+	}
+
+	void push_front(int nval)
+	{
+		Node *temp = new Node(nval);
+		temp->next = head;
+		head = temp;
+		if (tail == nullptr)
+		{
+			tail = temp;
+		}
+	}
+
+	void pop_back()
+	{
+		if (tail == nullptr && head == nullptr)
+		{
+			return;
+		}
+		if (head == tail)
+		{
+			delete head;
+			head = nullptr;
+			tail = nullptr;
+			return;
+		}
+		Node *temp = head;
+		while (temp->next != tail)
+		{
+			temp = temp->next;
+		}
+		delete tail;
+		temp->next = nullptr;
+		tail = temp;
+	}
+private:
+	Node *head;
+	Node *tail;
+};
