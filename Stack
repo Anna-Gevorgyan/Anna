@@ -1,0 +1,42 @@
+#pragma once
+
+class Stack
+{
+public:
+	struct Node
+	{
+		int value;
+		Node *next;
+
+		Node(int nval)
+		{
+			value = nval;
+			next = nullptr;
+		}
+	};
+
+	Stack()
+	{
+		head = nullptr;
+	}
+
+	void push_front(int nval)
+	{
+		Node *temp = new Node(nval);
+		temp->next = head;
+		head = temp;
+	}
+
+	void pop_front()
+	{
+		if(head == nullptr)
+		{
+			return;
+		}
+		Node *temp = head;
+		head = head->next;
+		delete temp;
+	}
+private:
+	Node * head;
+};
