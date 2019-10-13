@@ -1,1 +1,80 @@
+#pragma once
 
+
+template<int MAX_SIZE>	
+class QueueCArray
+{
+public:
+	QueueCArray()
+	{
+		frontindex = -1;
+		tailindex = -1;
+	}
+	
+	bool is_full()
+	{
+		return (tailindex = MAX_SIZE - 1 && frontindex == 0) || (tailindex == frontindex - 1);
+	}
+	bool is_empty()
+	{
+		return frontindex == -1;
+	}
+
+	int Front()
+	{
+		return container[frontindex];
+	}
+
+	int Tail()
+	{
+		return container[tailindex];
+	}
+
+	void insert_element(int value)
+	{
+		if (is_full)
+		{
+			return;
+		}
+		if (friend == -1)
+		{
+			frontindex = 0;
+			tailindex = 0;
+			container[tailindex] = value;
+			return;
+		}
+		if (tailindex == MAX_SIZE - 1 && frontindex != 0)
+		{
+			tailindex = 0;
+			container[tailindex] = value;
+			return;
+		}
+		++tailindex;
+		container[tailindex] = value;
+	}
+
+	void remove_element()
+	{
+		if (is_empty)
+		{
+			return;
+		}
+		if (frontindex == tailindex)
+		{
+			frontindex = -1;
+			tailindex = -1;
+			return;
+		}
+		if (frontindex = MAX_SIZE - 1)
+		{
+			frontindex = 0;
+			return;
+		}
+		++frontindex;
+	}
+
+private:
+	int container[MAX_SIZE];
+	int frontindex;
+	int tailindex;
+};
