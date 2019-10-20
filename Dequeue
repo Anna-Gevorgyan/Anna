@@ -1,0 +1,126 @@
+#pragma once
+#include <vector>
+#include <list>
+
+class DequeVectors 
+{
+public:
+	DequeVectors()
+	{
+		left_helper = -1;
+		right_helper = -1;
+		size = 0;
+	}
+
+	void push_back(int element)//add element on the right side
+	{
+		if (right_helper < -2)
+		{
+			++right_helper;
+			left[right_helper] = element;
+			++size;
+			return;
+		}
+		right.push_back(element);
+		if (right_helper == -1 || right_helper == -2)
+		{
+			right_helper = 0;
+		}
+		else
+		{
+			++right_helper;
+		}
+		if (left_helper == -1)
+		{
+			++left_helper;
+		}
+		++size;
+	}
+
+	void pop_back()//pop element from right side
+	{
+		if (right.size == 0)
+		{
+			--right_helper;
+			--size;
+			return;
+		}
+		right.pop_back();
+		--right_helper;
+		if (right_helper == -1 && left_helper != -1)
+		{
+			--right_helper;
+		}
+		--size;
+	}
+
+	void push_front(int element)//add element on the left side
+	{
+		if (left_helper > 0)
+		{
+			--left_helper;
+			right[left_helper] = element;
+			++size;
+			return;
+		}
+		left.push_back(element);
+		if (right.size == 0)
+		{
+			left_helper = -2;
+			right_helper = -2;
+		}
+		if (--left_helper == -1)
+		{
+			left_helper = -2;
+		}
+		else
+		{
+			--left_helper;
+
+		}
+		++size;
+	}
+
+	void pop_front()//pop element from the left side
+	{
+		if (left.size == 0)
+		{ 
+			++left_helper;
+			--size;
+			return;
+		}
+		left.pop_back();
+		++left_helper;
+		if (left_helper == -2 && right.size == 0)
+		{
+			left_helper = -1;
+		}
+		if (left_helper == -2 && right.size != 0)
+		{
+			left_helper = 0;
+		}
+		--size;
+	}
+	int operator[](int index)
+	{
+		if (left.size == 0)
+			return right[index];
+		if (right.size == 0)
+		{
+			return left[size - index - 1];
+		}
+		if (size - left.size <= index)
+		{
+			return right[index - left.size];
+		}
+		if (size - left.size > index)
+		{
+			return left[left.size - index - 1];
+		}
+	}
+private:
+	std::vector<int> left, right;
+	int left_helper;
+	int	right_helper; 
+	int size;
+};
